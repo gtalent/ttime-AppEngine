@@ -26,12 +26,13 @@ func gtime() string {
 		t.Second = 0
 		tsec = now.Seconds() - t.Seconds()
 	}
-	hour := int((float64(tsec) / 86400) * 10)
+
+	hour := int64((float64(tsec) / 86400) * 10)
 	tsec -= int64(8640 * hour)
-	minute := int((float64(tsec) / 8640) * 100)
-	tsec -= int64((864 / 100) * minute)
-	second := int((float64(tsec) / 864) * 1000)
-	return strconv.Itoa(int(hour)) + ":" + strconv.Itoa(int(minute)) + ":" + strconv.Itoa(int(second))
+	minute := int64((float64(tsec) / 8640) * 100)
+	tsec -= int64((8640 / 100) * minute)
+	second := int64((float64(tsec) / 864) * 1000)
+	return strconv.Itoa64(hour) + ":" + strconv.Itoa64(minute) + ":" + strconv.Itoa64(second)
 }
 
 func get(ctx *web.Context, val string) string {
