@@ -28,10 +28,10 @@ func gtime() string {
 	}
 
 	hour := int64((float64(tsec) / 86400) * 10)
-	tsec -= int64(8640 * hour)
+	tsec -= int64((86400 / 10) * hour)
 	minute := int64((float64(tsec) / 8640) * 100)
-	tsec -= int64((8640 / 100) * minute)
-	second := int64((float64(tsec) / 864) * 1000)
+	tsec -= int64((86400 / 1000) * minute)
+	second := int64((float64(tsec) / (86400 / 1000)) * 1000)
 	return strconv.Itoa64(hour) + ":" + strconv.Itoa64(minute) + ":" + strconv.Itoa64(second)
 }
 
