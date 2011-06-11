@@ -24,14 +24,14 @@ func gtime() string {
 		t.Hour = 0
 		t.Minute = 0
 		t.Second = 0
-		tsec = now.Seconds() - t.Seconds()
+		tsec = (now.Seconds() - t.Seconds()) * 1000
 	}
-
-	hour := int64((float64(tsec) / 86400) * 10)
-	tsec -= int64((86400 / 10) * hour)
-	minute := int64((float64(tsec) / 8640) * 100)
-	tsec -= int64((86400 / 1000) * minute)
-	second := int64((float64(tsec) / (86400 / 1000)) * 1000)
+	ms := int64(86400 * 1000)
+	hour := int64((float64(tsec) / float64(ms)) * 10)
+	tsec -= int64((ms / 10) * hour)
+	minute := int64((float64(tsec) / (float64(ms) / 10)) * 100)
+	tsec -= int64((ms / 1000) * minute)
+	second := int64((float64(tsec) / (float64(ms) / 100)) * 10000)
 	return strconv.Itoa64(hour) + ":" + strconv.Itoa64(minute) + ":" + strconv.Itoa64(second)
 }
 
