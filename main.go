@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"strconv"
 	"time"
+	"web"
 )
 
 func gdate() string {
@@ -34,7 +34,13 @@ func gtime() string {
 	return strconv.Itoa(int(hour)) + ":" + strconv.Itoa(int(minute)) + ":" + strconv.Itoa(int(second))
 }
 
+func get(ctx *web.Context, val string) string {
+	retval := "Date: " + gdate()
+	retval += "<br>Time: " + gtime()
+	return retval
+}
+
 func main() {
-	fmt.Println("Date:", gdate())
-	fmt.Println("Time:", gtime())
+	web.Get("/(.*)", get)
+	web.Run("0.0.0.0:7001")
 }
