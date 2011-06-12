@@ -12,6 +12,9 @@ func gdate() string {
 	ny.Year = now.Year
 	ny.Month = 1
 	ny.Day = 1
+	ny.Hour = 0
+	ny.Minute = 0
+	ny.Second = 0
 	ny.Zone = "CST"
 	return strconv.Itoa64((now.Seconds()-ny.Seconds())/86400) + ", " + strconv.Itoa64(now.Year)
 }
