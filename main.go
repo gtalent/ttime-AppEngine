@@ -8,6 +8,9 @@ import (
 
 func gdate() string {
 	now := time.LocalTime()
+	now.Hour = 24
+	now.Minute = 60
+	now.Second = 60
 	var ny time.Time
 	ny.Year = now.Year
 	ny.Month = 1
@@ -16,7 +19,8 @@ func gdate() string {
 	ny.Minute = 0
 	ny.Second = 0
 	ny.Zone = "CST"
-	return strconv.Itoa64((now.Seconds()-ny.Seconds())/86400) + ", " + strconv.Itoa64(now.Year)
+	day := (now.Seconds() - ny.Seconds()) / 86400
+	return strconv.Itoa64(day) + ", " + strconv.Itoa64(now.Year)
 }
 
 func gtime() string {
