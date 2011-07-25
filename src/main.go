@@ -1,9 +1,10 @@
-package main
+package gtime
 
 import (
+	"fmt"
+	"http"
 	"strconv"
 	"time"
-	"web"
 )
 
 func gdate() string {
@@ -42,13 +43,12 @@ func gtime() string {
 	return strconv.Itoa64(hour) + ":" + strconv.Itoa64(minute) + ":" + strconv.Itoa64(second)
 }
 
-func get(ctx *web.Context, val string) string {
+func get(w http.ResponseWriter, r *http.Request) {
 	retval := "Date: " + gdate()
 	retval += "<br>Time: " + gtime()
-	return retval
+	fmt.Fprint(w, retval)
 }
 
-func main() {
-	web.Get("/(.*)", get)
-	web.Run("0.0.0.0:7001")
+func init() {
+	http.HandleFunc("/", get)
 }
